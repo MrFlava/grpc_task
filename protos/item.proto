@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package item;
+
+service Item {
+  rpc AddItem(AddItemRequest) returns (AddItemResponse) {}
+}
+
+message AddItemRequest {
+  int32 id = 1;
+  string description = 2;
+}
+
+message AddItemResponse {
+    string status = 1;
+    string response = 2;
+}
