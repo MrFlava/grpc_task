@@ -140,5 +140,6 @@ applications/inbox/replies/messages/
 /ate.csv
 
 # grpc
-greet_pb2.py
-greet_pb2_grpc.py
+item_pb2.py
+item_pb2_grpc.py
+items.db
