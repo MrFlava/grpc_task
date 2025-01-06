@@ -5,16 +5,16 @@ package greet;
 // The greeting service definition.
 service Test {
 	// Unary
-	rpc SayCool (Coolrequest) returns (CoolReply);
+	rpc SayCool (CoolRequest) returns (CoolReply);
 
 	// Server Streaming
-	rpc SimonSaysHello (Coolrequest) returns (stream CoolReply);
+	rpc SimonSaysHello (CoolRequest) returns (stream CoolReply);
 
 	// Client Streaming
-	rpc SimonClientSaysHello (stream Coolrequest) returns (DelayedCoolReply);
+	rpc SimonClientSaysHello (stream CoolRequest) returns (DelayedCoolReply);
 
 	// Both Streaming
-	rpc InteractingSimonHello (stream Coolrequest) returns (stream CoolReply);
+	rpc InteractingSimonHello (stream CoolRequest) returns (stream CoolReply);
 }
 
 // The request message containing the user's name.
