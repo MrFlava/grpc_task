@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package greet;
+
+// The greeting service definition.
+service Test {
+	// Unary
+	rpc SayCool (Coolrequest) returns (CoolReply);
+
+	// Server Streaming
+	rpc SimonSaysHello (Coolrequest) returns (stream CoolReply);
+
+	// Client Streaming
+	rpc SimonClientSaysHello (stream Coolrequest) returns (DelayedCoolReply);
+
+	// Both Streaming
+	rpc InteractingSimonHello (stream Coolrequest) returns (stream CoolReply);
+}
+
+// The request message containing the user's name.
+message CoolRequest {
+  string name = 1;
+  string greeting = 2;
+}
+
+// The response message containing the greetings.
+message CoolReply {
+  string message = 1;
+}
+
+message DelayedCoolReply {
+	string message = 1;
+	repeated CoolRequest request = 2;
+}
