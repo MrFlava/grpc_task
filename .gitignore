@@ -142,3 +142,6 @@ applications/inbox/replies/messages/
 # grpc
 greet_pb2.py
 greet_pb2_grpc.py
+test_pb2.py
+test_pb2.pyi
+test_pb2_grpc.py
