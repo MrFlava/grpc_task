@@ -25,8 +25,8 @@ class TestServicer(test_pb2_grpc.TestServicer):
             time.sleep(3)
 
 
-    def ChattyClientSayHello(self, request_iterator, context):
-        print("ChattyClientSayHello Request Made:")
+    def SimonClientSaysHello(self, request_iterator, context):
+        print("SimonClientSaysHello Request Made:")
         delayed_reply = test_pb2.DelayedCoolReply()
         for request in request_iterator:
             print("in cycle:")
