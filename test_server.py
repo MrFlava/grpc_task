@@ -35,3 +35,14 @@ class TestServicer(test_pb2_grpc.TestServicer):
 
         delayed_reply.message = f"You have sent {len(delayed_reply.request)} messages. Please expect a delayed response."
         return delayed_reply
+
+def serve():
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    test_pb2_grpc.add_TestServicer_to_server(TestServicer(), server)
+    server.add_insecure_port("localhost:50051")
+    server.start()
+    server.wait_for_termination()
+
+
+if __name__ == "__main__":
+    serve()
