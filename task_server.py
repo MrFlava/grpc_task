@@ -2,6 +2,8 @@ from concurrent import futures
 import time
 
 import grpc
+from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
+
 import task_pb2
 import task_pb2_grpc
 
@@ -26,4 +28,12 @@ class SimilaritySearchServiceServicer(task_pb2_grpc.SimilaritySearchServiceServi
         return search_item_reply
 
     def GetSearchResults(self, request, context):
-        pass
+        print("Getting search results request")
+        print(request)
+
+        search_results_reply = task_pb2.GetSearchResultsResponse()
+        search_result1 = task_pb2.SearchResult()
+        search_result1.id = 'test-id'
+        search_result1.description = 'test-description'
+        search_results_reply.results = RepeatedCompositeFieldContainer([search_result1], type(search_result1))
+        return search_results_reply
