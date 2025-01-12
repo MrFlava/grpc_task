@@ -34,17 +34,12 @@ def run():
             print("Search Items Response Received:")
             print(search_items_response)
         elif rpc_call == "3":
-            pass
-        #     delayed_reply = stub.SimonClientSaysHello(get_client_stream_requests())
-        #
-        #     print("SimonClientSaysHello Response Received:")
-        #     print(delayed_reply)
-        # elif rpc_call == "4":
-        #     responses = stub.InteractingSimonHello(get_client_stream_requests())
-        #
-        #     for response in responses:
-        #         print("InteractingSimonHello Response Received: ")
-        #         print(response)
+            get_search_results_request = task_pb2.GetSearchResultsRequest(search_id="test1")
+            get_search_results_response = stub.GetSearchResults(get_search_results_request)
+
+            print("Get search results response received:")
+            print(get_search_results_response)
+
 
 if __name__ == "__main__":
     run()
