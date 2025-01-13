@@ -1,7 +1,10 @@
-import task_pb2_grpc
-import task_pb2
 import time
 import grpc
+import uuid
+
+import task_pb2_grpc
+import task_pb2
+
 
 def get_client_stream_requests():
     while True:
@@ -22,10 +25,11 @@ def run():
         rpc_call = input("Which rpc you like to make: ")
 
         if rpc_call == "1":
-            pass
-            add_request = task_pb2.AddItemRequest(id="test1", description="test")
+            item_desc = input("Write a description for the item: ")
+
+            add_request = task_pb2.AddItemRequest(id=str(uuid.uuid4()), description=item_desc)
             add_response = stub.AddItem(add_request)
-            print("Addr Response Received:")
+            print("Add Response Received:")
             print(add_response)
         elif rpc_call == "2":
             search_items_request = task_pb2.SearchItemsRequest(query="test")

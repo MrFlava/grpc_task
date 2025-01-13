@@ -11,10 +11,11 @@ class SimilaritySearchServiceServicer(task_pb2_grpc.SimilaritySearchServiceServi
     def AddItem(self, request, context):
         print("Adding item request")
         print(request)
-
+        add_item = {"itemID": request.id, "description": request.description}
+        print(add_item)
         add_item_reply = task_pb2.AddItemResponse()
-        add_item_reply.status = 1
-        add_item_reply.message = "created"
+        add_item_reply.status = 200
+        add_item_reply.message = f"Item with description {add_item.get('description')} created"
 
         return add_item_reply
 
