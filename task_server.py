@@ -31,9 +31,20 @@ class SimilaritySearchServiceServicer(task_pb2_grpc.SimilaritySearchServiceServi
         print("Getting search results request")
         print(request)
 
-        search_results_reply = task_pb2.GetSearchResultsResponse()
         search_result1 = task_pb2.SearchResult()
         search_result1.id = 'test-id'
         search_result1.description = 'test-description'
-        search_results_reply.results = RepeatedCompositeFieldContainer([search_result1], type(search_result1))
+        search_results_reply = task_pb2.GetSearchResultsResponse(results=[search_result1])
         return search_results_reply
+
+
+def serve():
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    task_pb2_grpc.add_SimilaritySearchServiceServicer_to_server(SimilaritySearchServiceServicer(), server)
+    server.add_insecure_port("localhost:50051")
+    server.start()
+    server.wait_for_termination()
+
+
+if __name__ == "__main__":
+    serve()
