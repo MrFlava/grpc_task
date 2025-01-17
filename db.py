@@ -6,3 +6,13 @@ class MongoDbConnector:
 
     def connect(self, db_name: str):
         return self.client[db_name]
+
+    def disconnect(self, db_name: str):
+        self.client[db_name].close()
+
+    def add_item(self, db_name: str, collection_name: str ,item: dict) -> dict:
+        collection = self.connect(db_name)[collection_name]
+
+        item = collection.insert_one(item)
+
+        return {"id": item.inserted_id}
