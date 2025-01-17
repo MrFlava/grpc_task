@@ -1,10 +1,10 @@
 from concurrent import futures
 
 import grpc
-from dotenv import load_dotenv
 
 import task_pb2
 import task_pb2_grpc
+from utils import config
 from db import MongoDbConnector
 
 class SimilaritySearchServiceServicer(task_pb2_grpc.SimilaritySearchServiceServicer):
@@ -42,7 +42,7 @@ class SimilaritySearchServiceServicer(task_pb2_grpc.SimilaritySearchServiceServi
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     task_pb2_grpc.add_SimilaritySearchServiceServicer_to_server(SimilaritySearchServiceServicer(), server)
-    server.add_insecure_port("localhost:50051")
+    server.add_insecure_port(f'{config["HOST"]}:{config["LOCAL_PORT"]}')
     server.start()
     server.wait_for_termination()
 

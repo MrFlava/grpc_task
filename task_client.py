@@ -4,6 +4,7 @@ import uuid
 
 import task_pb2_grpc
 import task_pb2
+from utils import config
 
 
 def get_client_stream_requests():
@@ -16,7 +17,7 @@ def get_client_stream_requests():
         time.sleep(1)
 
 def run():
-    with grpc.insecure_channel('localhost:50051') as channel:
+    with grpc.insecure_channel(f'{config["HOST"]}:{config["LOCAL_PORT"]}') as channel:
         stub = task_pb2_grpc.SimilaritySearchServiceStub(channel)
         print("1. Add item")
         print("2. Search items")
