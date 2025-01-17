@@ -1,11 +1,10 @@
 from concurrent import futures
-import time
 
 import grpc
-from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
 
 import task_pb2
 import task_pb2_grpc
+from db import db
 
 class SimilaritySearchServiceServicer(task_pb2_grpc.SimilaritySearchServiceServicer):
     def AddItem(self, request, context):
