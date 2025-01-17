@@ -1,10 +1,11 @@
 from concurrent import futures
 
 import grpc
+from dotenv import load_dotenv
 
 import task_pb2
 import task_pb2_grpc
-from db import db
+from db import MongoDbConnector
 
 class SimilaritySearchServiceServicer(task_pb2_grpc.SimilaritySearchServiceServicer):
     def AddItem(self, request, context):
