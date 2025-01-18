@@ -33,7 +33,9 @@ def run():
             print("Add Response Received:")
             print(add_response)
         elif rpc_call == "2":
-            search_items_request = task_pb2.SearchItemsRequest(query="test")
+            find_item_desc = input("Write a description for the searching item: ")
+
+            search_items_request = task_pb2.SearchItemsRequest(query=find_item_desc)
             search_items_response = stub.SearchItems(search_items_request)
 
             print("Search Items Response Received:")
