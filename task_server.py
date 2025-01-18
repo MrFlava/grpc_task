@@ -11,11 +11,21 @@ class SimilaritySearchServiceServicer(task_pb2_grpc.SimilaritySearchServiceServi
     def AddItem(self, request, context):
         print("Adding item request")
         print(request)
-        add_item = {"itemID": request.id, "description": request.description}
+        item = {"itemID": request.id, "description": request.description}
 
-        add_item_reply = task_pb2.AddItemResponse()
-        add_item_reply.status = 200
-        add_item_reply.message = f"Item with description {add_item.get('description')} created"
+        mongo = MongoDbConnector(host=config["HOST"], port=int(config["DB_PORT"]))
+
+        try:
+            item_id = mongo.add_item(db_name=config["DB_NAME"], collection_name="items", item=item)
+            add_item_reply = task_pb2.AddItemResponse()
+            add_item_reply.status = 200
+            add_item_reply.message = f"Item with description {item.get('description')} created with id {item_id}"
+
+        except Exception as e:
+            add_item_reply = task_pb2.AddItemResponse()
+            add_item_reply.status = 400
+            add_item_reply.message = f"An error occurred: {e}"
+            return add_item_reply
 
         return add_item_reply
 
