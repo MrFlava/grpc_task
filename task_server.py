@@ -4,8 +4,7 @@ import grpc
 
 import task_pb2
 import task_pb2_grpc
-from utils import config
-from db import MongoDbConnector
+from utils import config, mongo_connector
 
 class SimilaritySearchServiceServicer(task_pb2_grpc.SimilaritySearchServiceServicer):
     def AddItem(self, request, context):
@@ -13,7 +12,7 @@ class SimilaritySearchServiceServicer(task_pb2_grpc.SimilaritySearchServiceServi
         print(request)
         item = {"itemID": request.id, "description": request.description}
 
-        mongo = MongoDbConnector(host=config["HOST"], port=int(config["DB_PORT"]))
+        mongo = mongo_connector()
 
         try:
             item_id = mongo.add_item(db_name=config["DB_NAME"], collection_name="items", item=item)
@@ -33,8 +32,15 @@ class SimilaritySearchServiceServicer(task_pb2_grpc.SimilaritySearchServiceServi
         print("Searching items request")
         print(request)
 
-        search_item_reply = task_pb2.SearchItemsResponse()
-        search_item_reply.search_id = 'test-id'
+        mongo = mongo_connector()
+        try:
+            search_item_reply = task_pb2.SearchItemsResponse()
+            search_item_reply.search_id = 'test-id'
+
+        except Exception as e:
+            search_item_reply = task_pb2.SearchItemsResponse()
+            search_item_reply.search_id = 'not found'
+            return search_item_reply
 
         return search_item_reply
 
