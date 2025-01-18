@@ -1,3 +1,5 @@
+from typing import List
+
 from pymongo import MongoClient
 
 class MongoDbConnector:
@@ -16,3 +18,14 @@ class MongoDbConnector:
         item = collection.insert_one(item)
 
         return {"id": item.inserted_id}
+
+    def search_item(self, db_name: str, collection_name: str, query: dict) -> dict:
+        collection = self.connect(db_name)[collection_name]
+
+        return collection.find_one(query)
+
+
+    def search_items(self, db_name: str, collection_name: str, query: dict) -> List[dict]:
+        collection = self.connect(db_name)[collection_name]
+
+        return list(collection.find(query))
