@@ -33,11 +33,19 @@ class SimilaritySearchServiceServicer(task_pb2_grpc.SimilaritySearchServiceServi
         print(request)
 
         mongo = mongo_connector()
+
         try:
+            item_data = mongo.search_item(
+                db_name=config["DB_NAME"],
+                collection_name="items",
+                query={"description": request.query},
+            )
+
             search_item_reply = task_pb2.SearchItemsResponse()
-            search_item_reply.search_id = 'test-id'
+            search_item_reply.search_id = item_data["itemID"]
 
         except Exception as e:
+            print(e)
             search_item_reply = task_pb2.SearchItemsResponse()
             search_item_reply.search_id = 'not found'
             return search_item_reply
