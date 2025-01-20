@@ -41,7 +41,9 @@ def run():
             print("Search Items Response Received:")
             print(search_items_response)
         elif rpc_call == "3":
-            get_search_results_request = task_pb2.GetSearchResultsRequest(search_id="test1")
+            find_id = input("Which id you like to find: ")
+
+            get_search_results_request = task_pb2.GetSearchResultsRequest(search_id=find_id)
             get_search_results_response = stub.GetSearchResults(get_search_results_request)
 
             print("Get search results response received:")
