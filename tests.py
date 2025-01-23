@@ -28,5 +28,8 @@ class TestSimilaritySearch(unittest.TestCase):
             self.search_service.AddItem(item_id, item_description)
         )
 
+    def test_searchItem(self):
+        pass
+
 if __name__ == '__main__':
     unittest.main()
