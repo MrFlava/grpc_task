@@ -76,10 +76,10 @@ class SimilaritySearchServiceServicer(task_pb2_grpc.SimilaritySearchServiceServi
 
         except Exception as e:
             print(e)
-            search_result1 = task_pb2.SearchResult()
-            search_result1.id = '-'
-            search_result1.description = '-'
-            search_results_reply = task_pb2.GetSearchResultsResponse(results=[search_result1])
+            search_result_not_found = task_pb2.SearchResult()
+            search_result_not_found.id = '-'
+            search_result_not_found.description = '-'
+            search_results_reply = task_pb2.GetSearchResultsResponse(results=[search_result_not_found])
 
         return search_results_reply
 
