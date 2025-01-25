@@ -49,8 +49,21 @@ class TestSimilaritySearch(unittest.TestCase):
             self.search_service.SearchItem(item_description)
         )
 
-    def test_getItem(self):
-        pass
+    def test_getSearchResults(self):
+        search_items_id = str(uuid.uuid4())
+        search_results_reply = [
+            {"itemID": search_items_id, "description": "test item description"},
+            {"itemID": search_items_id, "description": "test item description1"},
+            {"itemID": search_items_id, "description": "test item description2"},
+            {"itemID": search_items_id, "description": "test item description3"},
+        ]
+
+        self.search_service.GetSearchResults = MagicMock(return_value=search_results_reply)
+
+        self.assertEqual(
+            search_results_reply,
+            self.search_service.GetSearchResults(search_items_id)
+        )
 
 if __name__ == '__main__':
     unittest.main()
