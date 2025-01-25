@@ -29,6 +29,16 @@ class TestSimilaritySearch(unittest.TestCase):
         )
 
     def test_searchItem(self):
+        item_description = "test item"
+        found_item = {"search_id": str(uuid.uuid4())}
+        self.search_service.SearchItem = MagicMock(return_value=found_item)
+
+        self.assertEqual(
+            found_item,
+            self.search_service.SearchItem(item_description)
+        )
+
+    def test_searchItem_bad_request(self):
         pass
 
 if __name__ == '__main__':
