@@ -20,11 +20,12 @@ class TestSimilaritySearch(unittest.TestCase):
     def test_addItem_bad_request(self):
         item_id = str(uuid.uuid4())
         item_description = 312321
+        bad_req_reply = {"status": 400, "message": "Bad Request"}
 
-        self.search_service.AddItem  = MagicMock(return_value={"status": 400, "message": "Bad Request"})
+        self.search_service.AddItem  = MagicMock(return_value=bad_req_reply)
 
         self.assertEqual(
-            {"status": 400, "message": "Bad Request"},
+            bad_req_reply,
             self.search_service.AddItem(item_id, item_description)
         )
 
@@ -39,7 +40,11 @@ class TestSimilaritySearch(unittest.TestCase):
         )
 
     def test_searchItem_bad_request(self):
-        pass
+        item_description = 2343243
+
+        self.search_service.SearchItem = MagicMock(return_value={"search_id": "Not Found"})
+
+        # self.assertEqual(
 
 if __name__ == '__main__':
     unittest.main()
