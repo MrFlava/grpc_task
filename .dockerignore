@@ -1,0 +1,16 @@
+*
+!/.box
+!/api
+!/core
+!/cabinet
+!/locales
+!/mock_data
+!/packages
+!/templates
+!/web
+!/workers
+!/static
+!/Pipfile
+!/Pipfile.lock
+!/manage.py
+!/Dockerfile
